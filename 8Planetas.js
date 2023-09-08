@@ -1,72 +1,46 @@
-let planeta1 = {
-    nombre: "Tierra",
-    altitud: 80.5,
-    longitud: 9.1,
-    nivelOxigeno: 0.21,
-    volumenAgua: 0.5
-};
-
-let planeta2 = {
-    nombre: "Jupiter",
-    altitud: 180.5,
-    longitud: 19.10,
-    nivelOxigeno: -0.1,
-    volumenAgua: 0.1
-};
-
-let planetas = [planeta1, planeta2];
-
-function analizarVolumenAgua(planetas) {
-    let volumenesAgua = planetas.map(function(planeta) {
-        return planeta.volumenAgua;
-    });
-
-    let suma = 0;
-    volumenesAgua.forEach(function(volumenAgua) {
-        suma += volumenAgua;
-    });
-
-    return suma;
+function generarPlanetaAleatorio() {
+    const nombres = ["Tierra", "Marte", "Jupiter", "Venus", "Saturno", "Urano", "Neptuno", "Plutón"];
+    
+    const nombreAleatorio = nombres[Math.floor(Math.random() * nombres.length)];
+    const altitudAleatoria = Math.random() * 200; // Altitud ,valor 0 y 200
+    const longitudAleatoria = Math.random() * 30; // Longitud ,valor 0 y 30
+    const nivelOxigenoAleatorio = Math.random() * 0.5; // Nivel de oxígeno,valor 0 y 0.5
+    const volumenAguaAleatorio = Math.random() * 1; // Volumen de agua,valor 0 y 1
+    
+    return {
+        nombre: nombreAleatorio,
+        altitud: altitudAleatoria,
+        longitud: longitudAleatoria,
+        nivelOxigeno: nivelOxigenoAleatorio,
+        volumenAgua: volumenAguaAleatorio
+    };
 }
 
-console.log(analizarVolumenAgua(planetas));
+let planetas = [];
 
-function analizarNivelOxigeno(planetas) {
-    let nivelesOxigeno = planetas.map(function(planeta) {
+// Generar 15 planetas aleatorios y agregarlos al array
+for (let i = 0; i < 15; i++) {
+    const planetaAleatorio = generarPlanetaAleatorio();
+    planetas.push(planetaAleatorio);
+}
+
+let sumarCantidadAgua=planetas.map(function(planeta){
+    return planeta.volumenAgua;
+}).reduce(function(total,agua){
+    return total+agua;},0);
+let CalcularOxigeno=planetas.map(function(planeta){
         return planeta.nivelOxigeno;
-    });
+ }).reduce(function(total,oxigeno){
+        return total+oxigeno*100;},0);
+let analizarOxigeno=planetas.filter(function(planeta){
+    return (planeta.nivelOxigeno<0)
+}) 
+let analizarVolumenagua=planetas.filter(function(planeta){
+    return (planeta.volumenAgua==0)
+})  
 
-    let operacion = 0;
-    nivelesOxigeno.forEach(function(nivelOxigeno) {
-        operacion = (operacion + nivelOxigeno) * 100;
-    });
-
-    return operacion;
-}
-
-console.log(analizarNivelOxigeno(planetas));
-
-//Encontrar si alguno de los 15 planetas tiene un nivel de oxigeno 
-//negativo y de ser así mostrar la información general de este
-
-function analizarnivelOxigenoNegativo(planetas) {
-    let nivelesOxigeno = planetas.map(function(planeta) {
-        return planeta.nivelOxigeno;
-    });
-
-    let nivelNegativo = null; // Cambiado a null para indicar que no se ha encontrado ningún nivel negativo
-    nivelesOxigeno.forEach(function(nivelOxigeno) {
-        if (nivelOxigeno < 0) {
-            nivelNegativo = nivelOxigeno; // Corregido el operador para asignar el valor correctamente
-        }
-    });
-    return nivelNegativo;
-}
-
-let nivelOxigenoNegativo = analizarnivelOxigenoNegativo(planetas);
-if (nivelOxigenoNegativo !== null) {
-    console.log("Se encontró un nivel de oxígeno negativo:", nivelOxigenoNegativo);
-} else {
-    console.log("No se encontraron niveles de oxígeno negativos.");
-}
-
+console.log("----Analisis de planetas---");    
+console.log("La suma total de agua entre los planetas es de: ",sumarCantidadAgua);
+console.log(`El porcentaje de oxígeno en la Tierra es: `,CalcularOxigeno);
+console.log("Los planetas con nivel de oxigeno negativo son: ",analizarOxigeno)
+console.log("Los planetas que no tienen agua son: ",analizarVolumenagua)

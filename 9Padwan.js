@@ -1,16 +1,19 @@
-let padawan = {
-    nombre: "Eigpis",
-    planeta: "Neptuno",
-    edad: 25,
-    estatura: 1.52
+//crear funcion prinicipal
+function  clasificarPadawan(nombre, planeta, edad , estatura,clasificarPadawan){
+  setTimeout(function(){
+      let padawan = {
+      nombreEstudiante: nombre,
+      planetaEstudiante:planeta,
+      edadEstudiante: edad,
+      estaturaEstudiante: estatura
   }
-  
-  function asignarAprendices(edad) {
-    if (edad < 15) {
-      return "le corresponde el manejo de la fuerza";
-    }
-    return "le corresponde manejo del sable de luz";
+      clasificarPadawan(padawan)
+  },2000)
+}
+//Llamar a la funcion principal
+  crearPadawan("Groju" , "yodora", 500, 30 ,function(padawan){
+  if (padawan.edadEstudiante<15){
+    console.log(`El padawan ${padawan.nombreEstudiante} cuya edad es ${padawan.edadEstudiante}años vas a manejo de la fuerza`);
   }
-  
-  console.log(`El padawan ${padawan.nombre} cuya estatura es ${padawan.estatura} metros y que vive en el planeta ${padawan.planeta}, ${asignarAprendices(16)}`);
-  
+      console.log(`El padawan ${padawan.nombreEstudiante} cuya edad es ${padawan.edadEstudiante} años vas a nanejo sable de luz`);
+})

@@ -1,0 +1,56 @@
+
+
+const nombres = ["zanahoria", "pollo", "brócoli", "pescado", "espinacas", "manzana", "hamburguesa", "lentejas", "cucaracha", "pasta"];
+const tipo = ["vegetal", "animal", "vegetal", "animal", "vegetal", "vegetal", "animal", "vegetal", "insecto", "vegetal"];
+const nivelEnergia = [150, 280, 200, 320, 180, 120, 400, 250, 300, 350];
+
+function generarAlimentoAleatorio() {
+    const indiceAleatorio = Math.floor(Math.random() * nombres.length);
+    const nombreAleatorio = nombres[indiceAleatorio];
+    const tipoAleatorio = tipo[indiceAleatorio];
+    const nivelEnergiaAleatorio = nivelEnergia[indiceAleatorio];
+
+    return {
+        nombre: nombreAleatorio,
+        tipo: tipoAleatorio,
+        nivelEnergiaAportado: nivelEnergiaAleatorio
+    };
+}
+ //Creando 300 alimentos por medio de bucle
+const listaDeAlimentos = [];
+for (let i = 0; i < 300; i++) {
+    const alimentoAleatorio = generarAlimentoAleatorio();
+    listaDeAlimentos.push(alimentoAleatorio);
+}
+
+// console.log(listaDeAlimentos);
+
+//funcion filtrado
+function alimentosVegetalMayor200(alimento){
+    return alimento.tipo==="vegetal" && alimento.nivelEnergiaAportado>200
+}
+
+
+// Función  sumatoria de niveles de energía alimentos vegetales
+function calcularSumatoriaNivelesEnergia(alimentos) {
+    let sumatoria = 0;
+    for (const alimento of alimentos) {
+        sumatoria += alimento.nivelEnergiaAportado;
+    }
+    return sumatoria;
+}
+
+// Función para filtrar alimentos después de 5 segundos
+function filtrarAlimentosDespuesDe5Segundos() {
+    // Utiliza la función de filtro para obtener alimentos de tipo vegetal con más de 200 unidades de energía
+    const alimentosFiltrados = listaDeAlimentos.filter(alimentosVegetalMayor200);
+
+    // Calcula la sumatoria de niveles de energía de los alimentos vegetales
+    const sumatoriaNivelesEnergia = calcularSumatoriaNivelesEnergia(alimentosFiltrados);
+
+    // Muestra la sumatoria 
+    console.log("Sumatoria de niveles de energía de alimentos vegetales:", sumatoriaNivelesEnergia);
+}
+
+
+setTimeout(filtrarAlimentosDespuesDe5Segundos, 5000);  // Llamar a la función de filtrado después de 5 segundos
